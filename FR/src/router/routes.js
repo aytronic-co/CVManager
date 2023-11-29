@@ -43,46 +43,55 @@ const routes = [
     ]
   },
     {
-    path: '/about',
+    path: '/profile',
     component: () => import('layouts/SecondLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/َAboutPage.vue') }
+      { path: '', component: () => import('pages/ProfilePage.vue') }
     ]
   },
-      {
+     {
     path: '/skils',
     component: () => import('layouts/SecondLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/َSkilsPage.vue') }
+      { path: '', component: () => import('pages/SkilsPage.vue') }
     ]
   },
-    {
+     {
     path: '/portfolio',
     component: () => import('layouts/SecondLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/َPortfolioPage.vue') }
+      { path: '', component: () => import('pages/PortfolioPage.vue') }
     ]
   },
-    {
-    path: '/biography',
-    component: () => import('layouts/SecondLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/َBiographyPage.vue') }
-    ]
-  },
-    {
-    path: '/settings',
-    component: () => import('layouts/SecondLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/َSettingsPage.vue') }
-    ]
-  },  {
+     {
     path: '/educations',
     component: () => import('layouts/SecondLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/َEducationsPage.vue') }
+      { path: '', component: () => import('pages/EducationsPage.vue') }
     ]
   },
+      {
+    path: '/biography',
+    component: () => import('layouts/SecondLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/BiographyPage.vue') }
+    ]
+  },
+       {
+    path: '/about',
+    component: () => import('layouts/SecondLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/AboutPage.vue') }
+    ]
+  },
+        {
+    path: '/settings',
+    component: () => import('layouts/SecondLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/SettingsPage.vue') }
+    ]
+  },
+
 
   // Always leave this as last one,
   // but you can also remove it

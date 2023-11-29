@@ -51,26 +51,18 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
-    title: 'داشبورد',
+    title: 'پروفایل',
     icon: 'school',
-    link: 'http://localhost:9200/#/dashboard'
-  },
-  {
-    title: 'خانه',
-    icon: 'school',
-    link: 'http://localhost:9200/#/'
-  },
-    {
-    title: 'مهارت ها',
-    icon: 'school',
-    link: 'http://localhost:9200/#/contact'
+    link: 'http://localhost:9200/#/profile'
   },
 
     {
-    title: ' درباره ما',
+    title: 'مهارت ها',
     icon: 'school',
-    link: 'http://localhost:9200/#/about'
+    link: 'http://localhost:9200/#/skils'
   },
+
+
   {
     title: 'نمونه کارها',
     icon: 'school',
@@ -81,27 +73,43 @@ const linksList = [
     icon: 'school',
     link: 'http://localhost:9200/#/educations'
   },
-  {
-    title: 'تنظیمات',
+   {
+    title: 'اطلاعات تماس',
     icon: 'school',
-    link: 'http://localhost:9200/#/settings'
-  },
-  {
-    title: 'بیوگرافی',
-    icon: 'school',
-    link: 'http://localhost:9200/#/biography'
+    link: 'http://localhost:9200/#/contact'
   },
   {
     title: 'رزومه',
     icon: 'school',
     link: 'http://localhost:9200/#/resume'
   },
+  {
+    title: 'بیوگرافی',
+    icon: 'school',
+    link: 'http://localhost:9200/#/biography'
+  },
+
+     {
+    title: ' درباره ما',
+    icon: 'school',
+    link: 'http://localhost:9200/#/about'
+  },
+   {
+    title: 'تنظیمات',
+    icon: 'school',
+    link: 'http://localhost:9200/#/settings'
+  },
+    {
+    title: ' خروج از داشبورد ',
+    icon: 'school',
+    link: 'http://localhost:9200/#/'
+  },
 
 
  ]
 
 export default defineComponent({
-  name: 'MainLayout',
+  // name: 'MainLayout',
 
   components: {
     EssentialLink

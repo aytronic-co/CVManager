@@ -11,6 +11,7 @@
 
 const { configure } = require('quasar/wrappers');
 const path = require('path');
+const {dir} = require('console');
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -102,7 +103,11 @@ module.exports = configure(function (/* ctx */) {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
-      config: {},
+      // lang: 'fa',
+      // config: {
+      //   direction: 'rtl'
+      // },
+
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -157,6 +162,7 @@ module.exports = configure(function (/* ctx */) {
 
     // https://v2.quasar.dev/quasar-cli-vite/developing-pwa/configuring-pwa
     pwa: {
+
       workboxMode: 'generateSW', // or 'injectManifest'
       injectPwaMetaTags: true,
       swFilename: 'sw.js',

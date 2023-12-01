@@ -56,6 +56,13 @@ const routes = [
       { path: '', component: () => import('pages/SkilsPage.vue') }
     ]
   },
+  {
+    path: '/work',
+    component: () => import('layouts/SecondLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/WorkPage.vue') }
+    ]
+  },
      {
     path: '/portfolio',
     component: () => import('layouts/SecondLayout.vue'),

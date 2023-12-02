@@ -104,9 +104,9 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
       // lang: 'fa',
-      // config: {
-      //   direction: 'rtl'
-      // },
+      config: {
+        direction: 'rtl'
+      },
 
 
       // iconSet: 'material-icons', // Quasar icon set

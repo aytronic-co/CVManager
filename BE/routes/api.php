@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +20,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/login', [AuthController::class, 'auth']);
+
+
+Route::post('admin', function (Request $request){
+    if ($request){
+       return response()->json(['status' => true , 'mobile' => $mobile ]);
+    }else {
+        return response()->json(['status' => false ]);
+
+    }
+ });

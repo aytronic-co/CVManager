@@ -43,10 +43,14 @@ export default defineComponent({
     const appData = useAppDataStore() ;
     const  { mobile} = storeToRefs(appData)
     const router = useRouter ;
+    const mobile = ref("");
+    const router = useRouter();
     function login(){
       mobile.value.validate();
       if(mobile.value){
         api.post('api/login', {
+
+        api.post('api/send-vc' , {
           mobile: mobile.value ,
         })
         .then((r) =>{

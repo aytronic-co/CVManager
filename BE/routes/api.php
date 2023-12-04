@@ -19,7 +19,10 @@ use App\Http\Controllers\AuthController;
 //     return $request->user();
 // });
 
-Route::post('/login', [AuthController::class, 'auth']);
+Route::get('/', function(){
+    return 'Kertop';
+});
+Route::post('/send-vc', [AuthController::class, 'verify']);
 
-
+Route::post('/verify', [AuthController::class, 'auth']);
 

@@ -10,14 +10,12 @@
      rounded outlined
      class="q-mt-lg"
      type="password"
-     v-model="password"
      autocomplete="off"
       />
 
     <q-btn outline
     class="full-width q-mt-md q-py-sm "
      color="light-blue-6" label="شروع کن"  rounded outlined
-     @click="verify"
      />
       </div>
     </div>

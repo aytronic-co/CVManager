@@ -32,44 +32,36 @@
 
 <script>
 import { api } from "src/boot/axios";
-import { defineComponent } from "vue"
+import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
-import { useAppDataStore } from 'src/stores/appData';
-import { storeToRefs } from 'pinia';
+import { useAppDataStore } from "src/stores/appData";
 
 export default defineComponent({
   name: "PageName",
   setup() {
-    const appData = useAppDataStore() ;
-    const  { mobile} = storeToRefs(appData)
-    const router = useRouter ;
+    const appData = useAppDataStore();
     const mobile = ref("");
     const router = useRouter();
-    function login(){
-      mobile.value.validate();
-      if(mobile.value){
-        api.post('api/login', {
-
-        api.post('api/send-vc' , {
-          mobile: mobile.value ,
-        })
-        .then((r) =>{
-          console.log(r.data);
-          if (r.data.status){
-             router.push('/verify')
-          }
-          else{
-            alert('مشکلی پیش آمده')
-          }
-        })
-      }
-     else{
-        alert('enter data')
+    function login() {
+      if (mobile.value) {
+        appData.userMobile = mobile.value
+        api
+          .post("api/send-vc", {
+            mobile: mobile.value,
+          })
+          .then((r) => {
+            console.log(r.data);
+            if (r.data.status) {
+              router.push("/verify");
+            } else {
+              alert("مشکلی پیش آمده");
+            }
+          });
       }
     }
     return {
       mobile,
-      login
+      login,
     };
   },
 });

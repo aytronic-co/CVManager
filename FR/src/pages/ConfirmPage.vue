@@ -10,11 +10,13 @@
      rounded outlined
      class="q-mt-lg"
      type="password"
+     v-model="password"
      autocomplete="off"
       />
 
     <q-btn outline
     class="full-width q-mt-md q-py-sm "
+    @click="verify"
      color="light-blue-6" label="شروع کن"  rounded outlined
      />
       </div>
@@ -26,30 +28,28 @@
 
 <script>
 import { api } from "src/boot/axios";
-import { defineComponent } from "vue"
+import { defineComponent, ref } from "vue"
 import { useRouter } from "vue-router";
 import { useAppDataStore } from 'src/stores/appData';
-import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: "PageName",
   setup() {
     const appData = useAppDataStore() ;
-    const  { password } = storeToRefs(appData)
-    const router = useRouter ;
+    const router = useRouter;
+    const password = ref(null);
     function verify(){
       if(password.value){
-        password.value.validate();
-        api.post('api/verify', {
-          mobile : appData.mobile;
+        api.post('api/auth', {
+          username : appData.userMobile,
           password : password.value
         })
         .then((r) =>{
           console.log(r.data);
-          if (r.data.status){
+          if (r.data.access_token) {
              router.push('/dashboard')
           }
-          else{
+          else {
             alert('مشکلی پیش آمده')
           }
         })

@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const useAppDataStore = defineStore('AppData', {
   state: () => ({
     counter: 0 ,
-    mobile: null
+    userMobile: null
   }),
 
   getters: {

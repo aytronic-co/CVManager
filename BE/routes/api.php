@@ -24,5 +24,5 @@ Route::get('/', function(){
 });
 Route::post('/send-vc', [AuthController::class, 'verify']);
 
-Route::post('/verify', [AuthController::class, 'auth']);
+Route::post('/auth', [AuthController::class, 'auth']);
 

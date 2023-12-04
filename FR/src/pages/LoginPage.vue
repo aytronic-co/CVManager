@@ -40,10 +40,10 @@ export default defineComponent({
   name: "PageName",
   setup() {
     const mobile = ref("");
-    const router = useRouter ;
+    const router = useRouter();
     function login(){
       if(mobile.value){
-        api.post('api/admin' , {
+        api.post('api/send-vc' , {
           mobile: mobile.value ,
         })
         .then((r) =>{

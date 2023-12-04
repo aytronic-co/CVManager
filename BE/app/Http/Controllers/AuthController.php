@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Library\SendSMS;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function auth(Request $request)
+    public function verify(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'mobile' => 'required|min:10'
+            'mobile' => 'required|min:10',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => $validator->messages()]);
@@ -30,11 +30,11 @@ class AuthController extends Controller
         }
     }
 
-    public function verify(Request $request)
+    public function auth(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'mobile' => 'required|min:10',
-            'password'=>'required|min:5'
+            'password' => 'required|min:5',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => $validator->messages()]);
@@ -42,7 +42,7 @@ class AuthController extends Controller
         $username = $request->moblie;
         $password = $request->password;
         $clientSecret = DB::table('oauth_clients')->where('id', 2)->value('secret');
-        $response = Http::asForm()->post('http://127.0.0.1:8001/oauth/token', [
+        $response = Http::asForm()->post(env('APP_URL') . '/oauth/token', [
             'grant_type' => 'password',
             'client_id' => '2',
             'client_secret' => $clientSecret,
@@ -53,4 +53,3 @@ class AuthController extends Controller
         return $response->json();
     }
 }
-

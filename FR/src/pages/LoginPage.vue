@@ -16,7 +16,7 @@
         />
 
         <q-btn
-          @click="$router.push('confirm')"
+          @click="login"
           outline
           class="full-width q-mt-md q-py-sm"
           color="light-blue-6"

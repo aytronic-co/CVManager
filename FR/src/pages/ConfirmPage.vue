@@ -13,11 +13,10 @@
      v-model="password"
      autocomplete="off"
       />
-
     <q-btn outline
     class="full-width q-mt-md q-py-sm "
      color="light-blue-6" label="شروع کن"  rounded outlined
-     @click="start"
+     @click="$router.push('dashboard')"
      />
       </div>
     </div>

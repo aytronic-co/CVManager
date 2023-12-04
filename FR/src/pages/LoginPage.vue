@@ -16,6 +16,7 @@
         />
 
         <q-btn
+          @click="$router.push('confirm')"
           outline
           class="full-width q-mt-md q-py-sm"
           color="light-blue-6"
@@ -23,7 +24,6 @@
           icon="security"
           rounded
           outlined
-          @click="login"
         />
       </div>
     </div>

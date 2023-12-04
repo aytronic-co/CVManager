@@ -23,7 +23,46 @@
   </q-page>
 </template>
 
+
 <script>
+import { api } from "src/boot/axios";
+import { defineComponent } from "vue"
+import { useRouter } from "vue-router";
+import { useAppDataStore } from 'src/stores/appData';
+import { storeToRefs } from 'pinia';
 
-
+export default defineComponent({
+  name: "PageName",
+  setup() {
+    const appData = useAppDataStore() ;
+    const  { password } = storeToRefs(appData)
+    const router = useRouter ;
+    function verify(){
+      if(password.value){
+        password.value.validate();
+        api.post('api/verify', {
+          mobile : appData.mobile;
+          password : password.value
+        })
+        .then((r) =>{
+          console.log(r.data);
+          if (r.data.status){
+             router.push('/dashboard')
+          }
+          else{
+            alert('مشکلی پیش آمده')
+          }
+        })
+      }
+     else{
+        alert('enter data')
+      }
+    }
+    return {
+      password,
+      verify
+    };
+  },
+});
 </script>
+

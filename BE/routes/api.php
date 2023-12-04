@@ -19,6 +19,9 @@ use App\Http\Controllers\AuthController;
 //     return $request->user();
 // });
 
+Route::get('/', function(){
+    return 'Kertop';
+});
 Route::post('/login', [AuthController::class, 'auth']);
 
 

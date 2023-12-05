@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -26,5 +27,6 @@ Route::prefix('admin')->group(function(){
     Route::post('/send-vc', [AuthController::class, 'verify']);
     Route::post('/auth', [AuthController::class, 'auth']);
 });
+Route::middleware('auth:api')->get('/profile' , [ProfileController::class,'index']);
 
 

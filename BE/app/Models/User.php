@@ -7,7 +7,7 @@ use App\Models\Profile;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use IlluminaProfile\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -49,12 +49,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    /**
-     * Get the profile associated with the User
-     *
-     * @return \IlluminaProfile\Database\Eloquent\Relations\HasOne
-     */
-    public function profile(): HasOne
+
+    protected $with = ['profile'];
+    public function profile():HasOne
     {
         return $this->hasOne(Profile::class);
     }

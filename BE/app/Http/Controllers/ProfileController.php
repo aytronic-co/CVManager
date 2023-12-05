@@ -37,6 +37,9 @@ class ProfileController extends Controller
         if ($validator->fails()){
             return response()->json(['status'=>false,'message'=> $validator->messages()]);
         }
+        // $profile = Profile::create([
+        //     'full_name'=>$request->full_name
+        // ]);
         $profile= new Profile();
         $profile->user_id=$request->user()->id;
         $profile->full_name=$request->full_name;
@@ -61,7 +64,20 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        $validator = Validator::make($request->all() , [
+            'full_name'=>'required|string',
+            'contact_number'=>'required|min:10'
+        ]);
+        if ($validator->fails()){
+            return response()->json(['status'=>false,'message'=> $validator->messages()]);
+        }
+        
+        $profile= Profile::find($profile->id);
+        $profile->full_name=$request->full_name;
+        $profile->contact_number=$request->contact_number;
+        $profile->birth_date=$request->birth_date;
+        $profile->save();
+        return response()->json(['status'=>true, $profile]);
     }
 
     /**
@@ -69,6 +85,7 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        //$profile->delete();
+        return response()->json(['status'=>false,'message'=> 'you cant delete your profile']);
     }
 }

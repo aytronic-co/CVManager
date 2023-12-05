@@ -32,6 +32,7 @@ class AuthController extends Controller
 
     public function auth(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
             'username' => 'required|min:10',
             'password' => 'required|min:5',

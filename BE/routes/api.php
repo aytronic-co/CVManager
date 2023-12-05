@@ -22,7 +22,9 @@ use App\Http\Controllers\AuthController;
 Route::get('/', function(){
     return 'Kertop';
 });
-Route::post('/send-vc', [AuthController::class, 'verify']);
+Route::prefix('admin')->group(function(){
+    Route::post('/send-vc', [AuthController::class, 'verify']);
+    Route::post('/auth', [AuthController::class, 'auth']);
+});
 
-Route::post('/auth', [AuthController::class, 'auth']);
 

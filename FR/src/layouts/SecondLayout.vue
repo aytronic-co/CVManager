@@ -62,7 +62,7 @@
     {
       title: 'پروفایل',
       icon: 'person',
-      link: 'http://localhost:9200/#/profile'
+      link: 'http://localhost:9000/#/createprofile'
     },
 
       {

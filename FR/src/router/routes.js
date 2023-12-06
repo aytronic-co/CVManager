@@ -1,6 +1,13 @@
 
 const routes = [
   {
+    path: '/createprofile',
+    component: () => import('layouts/SecondLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/CreateProfile.vue') }
+    ]
+  },
+  {
     path: '/',
     component: () => import('layouts/FirstLayout.vue'),
     children: [

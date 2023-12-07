@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Education extends Model
 {
     use HasFactory;
-    protected $quarded = [];
+    protected $guarded = [];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

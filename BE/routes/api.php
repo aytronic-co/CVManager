@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EducationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,5 @@ Route::prefix('admin')->group(function(){
     Route::post('/auth', [AuthController::class, 'auth']);
 });
 Route::prefix('admin')->apiResource('/profile' , ProfileController::class)->middleware('auth:api');
+Route::prefix('admin')->apiResource('/education' , EducationController::class)->middleware('auth:api');
 

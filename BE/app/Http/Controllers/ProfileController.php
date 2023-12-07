@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,20 +33,22 @@ class ProfileController extends Controller
     {
         $validator = Validator::make($request->all() , [
             'full_name'=>'required|string',
-            'contact_number'=>'required|min:10'
+            'contact_number'=>'required|min:10',
+            'image_url'=>'required|file'
         ]);
         if ($validator->fails()){
             return response()->json(['status'=>false,'message'=> $validator->messages()]);
-        }
-        // $profile = Profile::create([
-        //     'full_name'=>$request->full_name
-        // ]);
+        }        
         $profile= new Profile();
         $profile->user_id=$request->user()->id;
         $profile->full_name=$request->full_name;
         $profile->contact_number=$request->contact_number;
         $profile->birth_date=$request->birth_date;
         $profile->save();
+
+        $path=$request->file('image_url')->storeAs('avatars', Carbon::now()->microsecond . '.jpg','public' );
+        $profile->image()->create(['url'=> $path]);
+
         return response()->json(['status'=>true, $profile]);
 
     }
@@ -66,7 +69,9 @@ class ProfileController extends Controller
     {
         $validator = Validator::make($request->all() , [
             'full_name'=>'required|string',
-            'contact_number'=>'required|min:10'
+            'contact_number'=>'required|min:10',
+            'image_url'=>'required|file'
+
         ]);
         if ($validator->fails()){
             return response()->json(['status'=>false,'message'=> $validator->messages()]);
@@ -77,6 +82,8 @@ class ProfileController extends Controller
         $profile->contact_number=$request->contact_number;
         $profile->birth_date=$request->birth_date;
         $profile->save();
+        $path=$request->file('image_url')->storeAs('avatars', Carbon::now()->microsecond . '.jpg','public' );
+        $profile->image()->update(['url'=> $path]);
         return response()->json(['status'=>true, $profile]);
     }
 

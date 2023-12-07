@@ -27,7 +27,8 @@ Route::get('/', function(){
 Route::prefix('admin')->group(function(){
     Route::post('/send-vc', [AuthController::class, 'verify']);
     Route::post('/auth', [AuthController::class, 'auth']);
+    Route::apiResource('/profile' , ProfileController::class)->middleware('auth:api');
+    Route::apiResource('/education' , EducationController::class)->middleware('auth:api');
+
 });
-Route::prefix('admin')->apiResource('/profile' , ProfileController::class)->middleware('auth:api');
-Route::prefix('admin')->apiResource('/education' , EducationController::class)->middleware('auth:api');
 

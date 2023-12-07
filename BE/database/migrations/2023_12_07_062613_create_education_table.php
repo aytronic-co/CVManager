@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('degree');
             $table->string('school');
-            $table->string('field')->nullable();
+            $table->string('field');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();

@@ -6,8 +6,9 @@ namespace App\Models;
 use App\Models\Profile;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function profile():HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function educations(): HasMany
+    {
+        return $this->hasMany(Education::class);
     }
 }

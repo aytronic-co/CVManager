@@ -8,14 +8,14 @@ const routes = [
     ]
   },
   {
-    path: '/login',
+    path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/LoginPage.vue') }
     ]
   },
    {
-    path: '/verify',
+    path: '/confirm',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/ConfirmPage.vue') }

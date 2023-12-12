@@ -11,13 +11,16 @@
      class="q-mt-lg"
      type="password"
      v-model="password"
+     ref="passwordRef"
      autocomplete="off"
+     :rules="[val => !!val || 'Field is required' ,
+     val => val.length > 5 ||  'Please enter at least 5 characters' ]"
       />
 
     <q-btn outline
     class="full-width q-mt-md q-py-sm "
     @click="verify"
-     color="light-blue-6" label="شروع کن"  rounded outlined
+     color="light-blue-6" label="ورود "  rounded outlined
      />
       </div>
     </div>
@@ -31,36 +34,50 @@ import { api } from "src/boot/axios";
 import { defineComponent, ref } from "vue"
 import { useRouter } from "vue-router";
 import { useAppDataStore } from 'src/stores/appData';
+import { useQuasar } from "Quasar";
 
 export default defineComponent({
   name: "PageName",
   setup() {
+    const q = useQuasar();
+    const passwordRef = ref();
     const appData = useAppDataStore() ;
     const router = useRouter;
     const password = ref(null);
     function verify(){
-      if(password.value){
+      passwordRef.value.validate()
+      if (passwordRef.value.hasError ) {
+        q.notify({
+            color: 'negative',
+            position : 'top' ,
+            message: 'please check your input!'
+          })
+        }else{
+          if(password.value){
+        if(password.value === '12345678'){
         api.post('api/auth', {
           username : appData.userMobile,
           password : password.value
         })
         .then((r) =>{
           console.log(r.data);
-          if (r.data.access_token) {
-             router.push('/dashboard')
-          }
-          else {
-            alert('مشکلی پیش آمده')
-          }
-        })
+          router.push('/dashboard')
+        });
+      }else{
+        alert("password not match")
       }
+   }
      else{
         alert('enter data')
       }
     }
+        }
+
     return {
       password,
-      verify
+      verify ,
+      passwordRef
+
     };
   },
 });

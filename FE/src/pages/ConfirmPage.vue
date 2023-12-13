@@ -42,7 +42,7 @@ export default defineComponent({
     const q = useQuasar();
     const passwordRef = ref();
     const appData = useAppDataStore() ;
-    const router = useRouter;
+    const router = useRouter();
     const password = ref(null);
     function verify(){
       passwordRef.value.validate()
@@ -55,13 +55,17 @@ export default defineComponent({
         }else{
           if(password.value){
         if(password.value === '12345678'){
-        api.post('api/auth', {
+        api.post('api/admin/auth', {
           username : appData.userMobile,
           password : password.value
         })
         .then((r) =>{
-          console.log(r.data);
-          router.push('/dashboard')
+          if(r.data.access_token){
+              q.cookies.set('access_token' , r.data.access_token , {expires: '365d'})
+              q.cookies.set('refresh_token' , r.data.refresh_token , {expires: '365d'})
+              q.cookies.set('expires_in' , r.data.expires_in , {expires: '365d'})
+            }
+            router.push('/dashboard');
         });
       }else{
         alert("password not match")

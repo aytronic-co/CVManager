@@ -4,29 +4,47 @@ const routes = [
     path: '/',
     component: () => import('layouts/FirstLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
-    ]
+      { path: '', component: () => import('pages/IndexPage.vue'),
+      meta :{
+        requireAuth :false,
+      },
+     },
+    ],
   },
   {
     path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/LoginPage.vue') }
-    ]
+      { path: '', component: () => import('pages/LoginPage.vue') ,
+      meta :{
+        requireAuth :false,
+        admin : true
+      },
+      },
+    ],
   },
    {
     path: '/confirm',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/ConfirmPage.vue') }
-    ]
+      { path: '', component: () => import('pages/ConfirmPage.vue'),
+      meta :{
+        requireAuth :false,
+        confirm : true
+      },
+     },
+    ],
   },
    {
     path: '/dashboard',
     component: () => import('layouts/SecondLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/DashboardPage.vue') }
-    ]
+      { path: '', component: () => import('pages/DashboardPage.vue'),
+      meta :{
+        requireAuth :true,
+      },
+     },
+    ],
   },
      {
     path: '/contact',

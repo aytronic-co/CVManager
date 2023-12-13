@@ -60,7 +60,7 @@ export default defineComponent({
           if (mobile.value) {
         if(mobile.value.length === 10 ){
         appData.userMobile = mobile.value
-        api.post("api/send-vc", {
+        api.post("api/admin/send-vc", {
             mobile: mobile.value,
           })
           .then((r) => {

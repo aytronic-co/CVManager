@@ -105,7 +105,7 @@ module.exports = configure(function (/* ctx */) {
     framework: {
       lang: 'fa-IR',
       config: {
-        direction: 'rtl'
+      direction: 'rtl'
       },
 
 
@@ -120,7 +120,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [ ],
+      plugins: ['Notify' , "Cookies" ],
     },
 
     // animations: 'all', // --- includes all animations

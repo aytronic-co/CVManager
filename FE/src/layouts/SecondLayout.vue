@@ -53,12 +53,6 @@
   import EssentialLink from 'components/EssentialLink.vue'
 
   const linksList = [
-       {
-      title: ' صفحه اصلی',
-      icon: 'home',
-      link: 'http://localhost:9200/#/'
-    },
-
     {
       title: 'پروفایل',
       icon: 'person',

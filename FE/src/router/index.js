@@ -1,8 +1,8 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
-// import { api } from 'src/boot/axios'
-// import { Cookies } from 'quasar'
+import { api } from 'src/boot/axios'
+import { Cookies } from 'quasar'
 
 /*
  * If not building with SSR mode, you can
@@ -27,44 +27,44 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
-//   Router.beforeEach((to, from, next) => {
-//     let access_token_exist = false ;
-//     if(Cookies.get("access_token")){
-//       access_token_exist = true ;
-//       api.defaults.headers = {
-//         Authorization: "Bearer " + Cookies.get("access_token"),
-//         "Content-Type": "application/json",
-//         Accept: "application/json;charset=UTF-8",
-//       };
-//     }
-//     if(to.matched.some((record) => record.meta.requireAuth)){
-//       if (access_token_exist){
-//         // console.log(1111);
-//         next()
-//       }else{
-//         // console.log(2222);
-// next({
-//   path:"/dashboard" ,
-//   query :{redirect: to.fullPath} ,
-// });
-// }
-// } else{
-//   if( to.matched.some((record) => record.meta.confirm)){
-//       if (access_token_exist){
-//         // next({
-//         //   path:"/admin" ,
-//         //   query :{redirect: to.fullPath} ,
-//         // });
-//       }else{
-//         console.log(3333);
-//         next()
-//       }
-//   }else{
-//     console.log(4444);
-//     next();
-//   }
-//     }
-//   });
+  Router.beforeEach((to, from, next) => {
+    let access_token_exist = false ;
+    if(Cookies.get("access_token")){
+      access_token_exist = true ;
+      api.defaults.headers = {
+        Authorization: "Bearer " + Cookies.get("access_token"),
+        "Content-Type": "application/json",
+        Accept: "application/json;charset=UTF-8",
+      };
+    }
+    if(to.matched.some((record) => record.meta.requireAuth)){
+      if (access_token_exist){
+        // console.log(1111);
+        next()
+      }else{
+        // console.log(2222);
+next({
+  path:"/admin" ,
+  query :{redirect: to.fullPath} ,
+});
+}
+} else{
+  if( to.matched.some((record) => record.meta.admin) ||  to.matched.some((record) => record.meta.confirm)){
+      if (access_token_exist){
+        next({
+          path:"/dashboard" ,
+          query :{redirect: to.fullPath} ,
+        });
+      }else{
+        console.log(3333);
+        next()
+      }
+  }else{
+    console.log(4444);
+    next();
+  }
+    }
+  });
 
 
   return Router

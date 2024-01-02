@@ -51,8 +51,8 @@ export default {
     const q = useQuasar();
     const usernameRef = ref(null);
     const username = ref();
-    const clientSecret = ref("zxcWziazfDDlJOB77LMqRLVCvOsZWf9qKLvPMvFX");
-    const cliendId = ref(2);
+    //const clientSecret = ref("zxcWziazfDDlJOB77LMqRLVCvOsZWf9qKLvPMvFX");
+    //const cliendId = ref(2);
     const router = useRouter();
     function login() {
       usernameRef.value.validate();

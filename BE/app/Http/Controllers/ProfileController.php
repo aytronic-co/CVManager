@@ -34,7 +34,6 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all() , [
             'full_name'=>'required|string',
             'contact_number'=>'required|min:10',
-            'image_url'=>'required|file'
         ]);
         if ($validator->fails()){
             return response()->json(['status'=>false,'message'=> $validator->messages()]);
@@ -44,11 +43,21 @@ class ProfileController extends Controller
         $profile->full_name=$request->full_name;
         $profile->contact_number=$request->contact_number;
         $profile->birth_date=$request->birth_date;
+        $profile->birth_country=$request->birth_country;
+        $profile->contact_email=$request->contact_email;
+        $profile->social_links=$request->social_links;
+        $profile->address=$request->address;
+        $profile->about=$request->about;
+        $profile->marrid=$request->marrid;
+        $profile->gender=$request->gender;
+        $profile->khedmat=$request->khedmat;
+        if ($request->status)
+             $profile->status=$request->status;
         $profile->save();
-
-        $path=$request->file('image_url')->storeAs('avatars', Carbon::now()->microsecond . '.jpg','public' );
-        $profile->image()->create(['url'=> $path]);
-
+        if ($request->image_url){
+            $path=$request->file('image_url')->storeAs('avatars', Carbon::now()->microsecond . '.jpg','public' );
+            $profile->image()->create(['url'=> $path]);
+        }
         return response()->json(['status'=>true, $profile]);
 
     }
@@ -66,24 +75,41 @@ class ProfileController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Profile $profile)
-    {
-        $validator = Validator::make($request->all() , [
+    {   
+        $validator = Validator::make($request->all(),[
             'full_name'=>'required|string',
             'contact_number'=>'required|min:10',
-            'image_url'=>'required|file'
-
         ]);
         if ($validator->fails()){
             return response()->json(['status'=>false,'message'=> $validator->messages()]);
         }
-        
-        $profile= Profile::find($profile->id);
         $profile->full_name=$request->full_name;
         $profile->contact_number=$request->contact_number;
-        $profile->birth_date=$request->birth_date;
+        if ($request->birth_date)
+            $profile->birth_date=$request->birth_date;
+        if ($request->birth_country)
+            $profile->birth_country=$request->birth_country;
+        if ($request->contact_email)
+            $profile->contact_email=$request->contact_email;
+        if ($request->social_links)
+            $profile->social_links=$request->social_links;
+        if ($request->address)
+            $profile->address=$request->address;
+        if ($request->about)
+            $profile->about=$request->about;
+        if ($request->status)
+            $profile->marrid=$request->marrid;
+        if ($request->gender)
+            $profile->gender=$request->gender;
+        if ($request->khedmat)
+            $profile->khedmat=$request->khedmat;
+        if ($request->status)
+            $profile->status=$request->status;
         $profile->save();
-        $path=$request->file('image_url')->storeAs('avatars', Carbon::now()->microsecond . '.jpg','public' );
-        $profile->image()->update(['url'=> $path]);
+        if ($request->image_url){
+            $path=$request->file('image_url')->storeAs('avatars', Carbon::now()->microsecond . '.jpg','public' );
+            $profile->image()->update(['url'=> $path]);
+        }
         return response()->json(['status'=>true, $profile]);
     }
 

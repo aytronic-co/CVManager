@@ -77,13 +77,19 @@ class EducationController extends Controller
         if ($validator->fails()){
             return response()->json(['status'=>false,'message'=> $validator->messages()]);
         }
+        $stD=$education->start_date;
+        if ($request->start_date)
+            $stD=$request->start_date;
+        $endD=$education->end_date;
+        if ($request->end_date)
+            $endD=$request->end_date;
         $education = Education::update([
              'user_id'=>$request->user()->id,
              'degree'=>$request->degree,
              'school'=>$request->school,
              'field'=>$request->field,
-             'start_date'=>$request->start_date,
-             'end_date'=>$request->end_date,
+             'start_date'=>$stD,
+             'end_date'=>$endD,
         ]);
         if (!$education){
             return response()->json(['status'=>false,'message'=> 'education dosnt updated']);

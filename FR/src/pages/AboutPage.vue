@@ -3,13 +3,19 @@
     <div class="row justify-center">
       <div class="col-auto text-center">
         <q-avatar size="80px">
-          <q-img v-if="userData" src="/1.jpg" />
+          <q-img
+            v-if="userData"
+            :src="'http://localhost:8000/storage/' + userData.profile.image.url"
+          />
           <q-skeleton v-else type="circle" />
         </q-avatar>
         <h4 v-if="userData" class="text-h6 q-ma-none">
           من {{ userData.profile.full_name }} هستم. به صفحه شخصی من خوش آمدید.
         </h4>
-        <h5 v-if="userData">تاریخ تولد من : {{ userData.profile.birth_date }}</h5>
+        <h5 v-if="userData">
+          تاریخ تولد من : {{ userData.profile.birth_date }}
+        </h5>
+        <h5 v-if="userData">ایمیل من : {{ userData.profile.contact_email }}</h5>
 
         <div>تحصیلات من:</div>
         <div

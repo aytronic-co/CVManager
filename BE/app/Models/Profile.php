@@ -23,6 +23,7 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+    protected $with = ['image'];
     public function image():MorphOne{
         return $this->morphOne(Image::class,"imageable");
     }

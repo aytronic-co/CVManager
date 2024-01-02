@@ -50,8 +50,8 @@ export default {
     const username = ref(null);
     const password = ref(null);
     const passwordRef = ref();
-    const clientSecret = ref("zxcWziazfDDlJOB77LMqRLVCvOsZWf9qKLvPMvFX");
-    const cliendId = ref(2);
+    //const clientSecret = ref("zxcWziazfDDlJOB77LMqRLVCvOsZWf9qKLvPMvFX");
+    //const cliendId = ref(2);
     const router = useRouter();
     function verify() {
       passwordRef.value.validate();
@@ -65,8 +65,8 @@ export default {
         api
           .post("api/admin/auth", {
             grant_type: "password",
-            client_id: cliendId.value,
-            client_secret: clientSecret.value,
+            //client_id: cliendId.value,
+            //client_secret: clientSecret.value,
             username: appData.mobile, //route.params.modelValue, //username.value,
             password: password.value,
           })

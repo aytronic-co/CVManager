@@ -29,7 +29,9 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/SecondLayout.vue"),
-    children: [{ path: "", component: () => import("pages/dashboard.vue") }],
+    children: [
+      { path: "", component: () => import("pages/DashboardPage.vue") },
+    ],
     meta: {
       requireAuth: true,
       // dashboard: true,

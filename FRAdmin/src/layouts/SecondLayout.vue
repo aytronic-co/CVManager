@@ -86,11 +86,6 @@ const linksList = [
   },
 
   {
-    title: " درباره ما",
-    icon: "help",
-    link: "/#/about",
-  },
-  {
     title: "تنظیمات",
     icon: "settings",
     link: "/#/settings",

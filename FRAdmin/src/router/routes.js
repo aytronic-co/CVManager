@@ -75,7 +75,13 @@ const routes = [
   {
     path: "/profile",
     component: () => import("layouts/SecondLayout.vue"),
-    children: [{ path: "", component: () => import("pages/ProfilePage.vue") }],
+    children: [
+      { path: "", component: () => import("pages/ProfilePage.vue") },
+      {
+        path: "editpic/:id",
+        component: () => import("pages/EditPicture.vue"),
+      },
+    ],
     meta: {
       requireAuth: true,
     },

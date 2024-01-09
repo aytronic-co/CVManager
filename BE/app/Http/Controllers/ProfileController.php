@@ -76,36 +76,27 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {   
-        $validator = Validator::make($request->all(),[
-            'full_name'=>'required|string',
-            'contact_number'=>'required|min:10',
-        ]);
-        if ($validator->fails()){
-            return response()->json(['status'=>false,'message'=> $validator->messages()]);
-        }
-        $profile->full_name=$request->full_name;
-        $profile->contact_number=$request->contact_number;
-        if ($request->birth_date)
+        // $validator = Validator::make($request->all(),[
+        //     'full_name'=>'required|string',
+        //     'contact_number'=>'required|min:10',
+        // ]);
+        // if ($validator->fails()){
+        //     return response()->json(['status'=>false,'message'=> $validator->messages()]);
+        // }
+            $profile->full_name=$request->full_name;
+            $profile->contact_number=$request->contact_number;
             $profile->birth_date=$request->birth_date;
-        if ($request->birth_country)
             $profile->birth_country=$request->birth_country;
-        if ($request->contact_email)
             $profile->contact_email=$request->contact_email;
-        if ($request->social_links)
             $profile->social_links=$request->social_links;
-        if ($request->address)
             $profile->address=$request->address;
-        if ($request->about)
             $profile->about=$request->about;
-        if ($request->status)
             $profile->marrid=$request->marrid;
-        if ($request->gender)
             $profile->gender=$request->gender;
-        if ($request->khedmat)
             $profile->khedmat=$request->khedmat;
-        if ($request->status)
             $profile->status=$request->status;
-        $profile->save();
+        //if ($profile->isDirty())
+             $profile->save();
         if ($request->image_url){
             $path=$request->file('image_url')->storeAs('avatars', Carbon::now()->microsecond . '.jpg','public' );
             $profile->image()->update(['url'=> $path]);

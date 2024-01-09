@@ -5,11 +5,11 @@
         <q-btn flat dense round icon="menu" aria-label="Menu" />
         <q-toolbar-title>
           <q-tabs>
-            <q-route-tab to="/" label="خانه" />
-            <q-route-tab to="/portfolio" label="نمونه کارها" />
-            <q-route-tab to="/about" label="درباره ما" />
-            <q-route-tab to="/contact" label="تماس با ما" />
-            <q-route-tab to="/resume" label="دانلود رزومه" />
+            <q-tab @click="goTo('homeTag')" label="خانه" />
+            <q-tab @click="goTo('aboutTag')" label="درباره ما" />
+            <q-tab @click="goTo('portfolioTag')" label="نمونه کارها" />
+            <q-tab @click="goTo('contactTag')" label="تماس با ما" />
+            <q-tab @click="goTo('resumeTag')" label="دانلود رزومه" />
           </q-tabs>
         </q-toolbar-title>
         <div>CVManager 2023</div>
@@ -29,9 +29,12 @@ export default {
 
   setup() {
     const leftDrawerOpen = ref(false);
-
+    function goTo(param) {
+      document.getElementById(param).scrollIntoView();
+    }
     return {
       leftDrawerOpen,
+      goTo,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },

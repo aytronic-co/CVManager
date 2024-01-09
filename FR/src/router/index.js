@@ -35,44 +35,5 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  // Router.beforeEach((to, from, next) => {
-  //   let access_token_exist = false;
-  //   if (Cookies.get("access_token")) {
-  //     access_token_exist = true;
-  //     api.defaults.headers = {
-  //       Authorization: "Bearer " + Cookies.get("access_token"),
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json;charset=UTF-8",
-  //     };
-  //     // next(); غلطه
-  //   }
-  //   if (to.matched.some((record) => record.meta.requireAuth)) {
-  //     if (access_token_exist) {
-  //       next();
-  //     } else {
-  //       next({
-  //         path: "/login",
-  //         query: { redirect: to.fullPath },
-  //       });
-  //     }
-  //   } else {
-  //     if (
-  //       to.matched.some((record) => record.meta.login) ||
-  //       to.matched.some((record) => record.meta.register)
-  //     ) {
-  //       if (access_token_exist) {
-  //         next({
-  //           path: "/",
-  //           query: { redirect: to.fullPath },
-  //         });
-  //       } else {
-  //         next();
-  //       }
-  //     } else {
-  //       next();
-  //     }
-  //   }
-  // });
-
   return Router;
 });

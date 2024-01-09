@@ -1,10 +1,28 @@
 <template>
   <q-page>
     <div class="flex flex-center">
-      <q-input v-model="school" label="School"> </q-input><br />
-      <q-input v-model="degree" label="Degree"> </q-input>
-      <q-input v-model="field" label="field"> </q-input>
-      <q-btn @click="Add" icon="add" unelevated />
+      <q-input
+        v-model="school"
+        label="School"
+        :rules="[(val) => val.length > 0 || 'Field is required']"
+      >
+      </q-input>
+      <q-input
+        v-model="degree"
+        label="Degree"
+        :rules="[(val) => val.length > 0 || 'Field is required']"
+      >
+      </q-input>
+      <q-input
+        v-model="field"
+        label="field"
+        :rules="[(val) => val.length > 0 || 'Field is required']"
+      >
+      </q-input>
+      <q-input v-model="startDate" label="start date"> </q-input>
+      <q-input v-model="endDate" label="end date"> </q-input>
+
+      <q-btn @click="AddOrUpdate" icon="add" unelevated />
     </div>
     <div>
       <div v-for="(edu, index) in EduData" :key="'AdminEdu' + index + 1">
@@ -12,8 +30,9 @@
           ><q-card-section>
             <h6 class="q-ma-none">
               دانشگاه: {{ edu.school }} - مقطع: {{ edu.degree }} - رشته:
-              {{ edu.field }}
-              <q-btn @click="edit(index)" icon="edit" unelevated />
+              {{ edu.field }} - شروع : {{ edu.start_date }} - پایان:
+              {{ edu.end_date }}
+              <q-btn @click="edit(edu.id, index)" icon="edit" unelevated />
               <q-btn
                 @click="deleteEdu(edu.id, index)"
                 icon="delete"
@@ -35,10 +54,14 @@ export default {
   name: "EducationPage",
   setup() {
     const $q = useQuasar();
+    const EditMode = ref(false);
     const school = ref("");
     const degree = ref("");
     const field = ref("");
-    const selectedEdu = ref("");
+    const startDate = ref("");
+    const endDate = ref("");
+    const selectedEduID = ref("");
+    const selectedEduIndex = ref("");
     const EduData = ref([]);
     function fetchUserEdu() {
       api.get("api/user").then((r) => {
@@ -48,10 +71,20 @@ export default {
     onMounted(() => {
       fetchUserEdu();
     });
-    function edit(index) {
+
+    function reset() {
+      myForm.value.resetValidation();
+    }
+
+    function edit(id, index) {
       degree.value = EduData.value[index].degree;
       school.value = EduData.value[index].school;
       field.value = EduData.value[index].field;
+      startDate.value = EduData.value[index].start_date;
+      endDate.value = EduData.value[index].end_date;
+      EditMode.value = true;
+      selectedEduID.value = id;
+      selectedEduIndex.value = index;
     }
     function deleteEdu(id, index) {
       api.delete("api/admin/education/" + id).then((r) => {
@@ -73,49 +106,102 @@ export default {
         }
       });
     }
-    function Add() {
-      api
-        .post("api/admin/education/", {
-          degree: degree.value,
-          school: school.value,
-          field: field.value,
-        })
-        .then((r) => {
-          if (r.data.status) {
-            EduData.value.push({
-              school: school.value,
-              degree: degree.value,
-              field: field.value,
-            });
-            (school.value = null),
-              (degree.value = null),
-              (field.value = null),
+    function AddOrUpdate() {
+      if (EditMode.value) {
+        api
+          .put("api/admin/education/" + selectedEduID.value, {
+            degree: degree.value,
+            school: school.value,
+            field: field.value,
+            start_date: startDate.value,
+            end_date: endDate.value,
+          })
+          .then((r) => {
+            if (r.data.status) {
+              (EduData.value[selectedEduIndex.value].school = school.value),
+                (EduData.value[selectedEduIndex.value].degree = degree.value),
+                (EduData.value[selectedEduIndex.value].field = field.value),
+                (EduData.value[selectedEduIndex.value].start_date =
+                  startDate.value),
+                (EduData.value[selectedEduIndex.value].end_date =
+                  endDate.value),
+                (school.value = null),
+                (degree.value = null),
+                (field.value = null),
+                (startDate.value = null),
+                (endDate.value = null),
+                (EditMode.value = false),
+                $q.notify({
+                  message: "با موفقیت ثبت شد",
+                  color: "positive",
+                  position: "top",
+                  icon: "ion-ios-happy",
+                });
+            } else {
               $q.notify({
-                message: "با موفقیت ثبت شد",
-                color: "positive",
+                message: "خطایی پیش آمده، لطفا دوباره تلاش کنید",
+                color: "negative",
                 position: "top",
-                icon: "ion-ios-happy",
+                icon: "ion-ios-sad",
               });
-          } else {
-            $q.notify({
-              message: "خطایی پیش آمده، لطفا دوباره تلاش کنید",
-              color: "negative",
-              position: "top",
-              icon: "ion-ios-sad",
-            });
-          }
-        });
+            }
+          });
+      } else {
+        api
+          .post("api/admin/education/", {
+            degree: degree.value,
+            school: school.value,
+            field: field.value,
+            start_date: startDate.value,
+            end_date: endDate.value,
+          })
+          .then((r) => {
+            if (r.data.status) {
+              EduData.value.push({
+                school: school.value,
+                degree: degree.value,
+                field: field.value,
+                start_date: startDate.value,
+                end_date: endDate.value,
+                id: r.data.education.id,
+              });
+              (school.value = " "),
+                (degree.value = " "),
+                (field.value = " "),
+                (startDate.value = null),
+                (endDate.value = null),
+                $q.notify({
+                  message: "با موفقیت ثبت شد",
+                  color: "positive",
+                  position: "top",
+                  icon: "ion-ios-happy",
+                });
+            } else {
+              $q.notify({
+                message: "خطایی پیش آمده، لطفا دوباره تلاش کنید",
+                color: "negative",
+                position: "top",
+                icon: "ion-ios-sad",
+              });
+            }
+          });
+      }
     }
+
     return {
       fetchUserEdu,
       EduData,
-      Add,
       school,
       field,
       degree,
       edit,
       deleteEdu,
-      selectedEdu,
+      selectedEduID,
+      selectedEduIndex,
+      startDate,
+      endDate,
+      AddOrUpdate,
+      EditMode,
     };
   },
 };

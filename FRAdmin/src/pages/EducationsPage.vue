@@ -34,13 +34,49 @@
               {{ edu.end_date }}
               <q-btn @click="edit(edu.id, index)" icon="edit" unelevated />
               <q-btn
-                @click="deleteEdu(edu.id, index)"
+                @click="showDeleteBox(edu.id, index)"
                 icon="delete"
                 unelevated
               />
-            </h6> </q-card-section
-        ></q-card>
+            </h6>
+          </q-card-section>
+        </q-card>
       </div>
+    </div>
+  </q-page>
+  <q-page>
+    <div>
+      <q-dialog style="min-width: 450px" v-model="deleteMode">
+        <q-card flat class="full-width r35">
+          <q-card-section
+            class="text-center bg-light-blue-3 text-light-blue-10 text-weight-bold text-h6"
+          >
+            تاییده حذف
+          </q-card-section>
+          <q-card-section>
+            آیا از حذف "{{ EduData[selectedEduIndex].degree }}:
+            {{ EduData[selectedEduIndex].school }}" مطمئن هستید؟
+          </q-card-section>
+          <q-card-actions align="around">
+            <q-btn
+              class="q-px-xl"
+              rounded
+              unelevated
+              color="light-green-6"
+              label="بله"
+              @click="deleteEdu"
+            />
+            <q-btn
+              class="q-px-xl"
+              rounded
+              unelevated
+              color="pink-7"
+              label="لغو"
+              v-close-popup
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
   </q-page>
 </template>
@@ -62,6 +98,7 @@ export default {
     const endDate = ref("");
     const selectedEduID = ref("");
     const selectedEduIndex = ref("");
+    const deleteMode = ref(false);
     const EduData = ref([]);
     function fetchUserEdu() {
       api.get("api/user").then((r) => {
@@ -86,7 +123,16 @@ export default {
       selectedEduID.value = id;
       selectedEduIndex.value = index;
     }
-    function deleteEdu(id, index) {
+    function showDeleteBox(id, index) {
+      selectedEduID.value = id;
+      selectedEduIndex.value = index;
+      deleteMode.value = true;
+    }
+
+    function deleteEdu() {
+      const id = selectedEduID.value;
+      const index = selectedEduIndex.value;
+      deleteMode.value = false;
       api.delete("api/admin/education/" + id).then((r) => {
         if (r.data.status) {
           EduData.value.splice(index, 1);
@@ -202,6 +248,8 @@ export default {
       endDate,
       AddOrUpdate,
       EditMode,
+      deleteMode,
+      showDeleteBox,
     };
   },
 };

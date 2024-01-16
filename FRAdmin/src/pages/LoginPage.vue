@@ -47,12 +47,10 @@ export default {
   name: "LoginPage",
   setup() {
     const appData = useAppDataStore();
-    const { mobile } = storeToRefs(appData);
+    const { userMobile } = storeToRefs(appData);
     const q = useQuasar();
     const usernameRef = ref(null);
     const username = ref();
-    //const clientSecret = ref("zxcWziazfDDlJOB77LMqRLVCvOsZWf9qKLvPMvFX");
-    //const cliendId = ref(2);
     const router = useRouter();
     function login() {
       usernameRef.value.validate();
@@ -63,28 +61,22 @@ export default {
           message: "Please chech your inputs",
         });
       } else {
-        appData.mobile = username.value;
+        appData.userMobile = username.value;
         api
           .post("api/admin/send-vc", {
-            username: username.value,
+            mobile: username.value,
           })
           .then((r) => {
             console.log(r.data);
-            if (r.data.access_token) {
-              q.cookies.set("access_token", r.data.access_token);
-              q.cookies.set("refresh_token", r.data.refresh_token);
-              q.cookies.set("expires_in", r.data.expires_in);
+            if (r.data.status) {
+              router.push("/verify");
+            } else {
+              alert("مشکلی پیش آمده");
             }
-            // if (r.data.status) {
-            router.push("/verify");
-            // } else {
-            //   alert("مشکلی پیش آمده");
-            // }
           });
       }
     }
     return {
-      mobile,
       login,
       usernameRef,
       username,

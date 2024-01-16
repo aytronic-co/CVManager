@@ -11,7 +11,7 @@ use console;
           accept=".jpg, image/*"
           v-model="image_url"
         /> -->
-      
+
         <q-file
           name="image_url"
           v-model="file"
@@ -47,56 +47,54 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const props = reactive({
+      profile: null,
       loading: false,
-      full_name: "",
-      contact_number: "",
       image_url: "",
     });
-    function getPicture() {
-      api.get("api/admin/profile/" + route.params.id).then((r) => {
-        console.log(r.data);
-        props.full_name = r.data.full_name;
-        props.contact_number = r.data.contact_number;
+    function fetchProfile(){
+      api.get("api/user").then((r) => {
+        props.profile=r.data.profile;
       });
     }
-    getPicture();
+    fetchProfile();
     function updatePicture(event) {
       const formData = new FormData(event.target);
       props.loading = true;
-      api
-        .post("api/admin/profile/" + route.params.id, formData, {
-          method: put,
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((r) => {
-          props.loading = false;
-          console.log(r.data);
-          if (r.data.status) {
-            q.notify({
-              color: "light-blue-6",
-              position: "top",
-              message: "photo updated successfully!",
-              icon: "done_all",
+          api
+            .post("api/admin/profile/" + props.profile.id, formData, {
+              method: put,
+              headers: { "Content-Type": "multipart/form-data" },
+            })
+            .then((r) => {
+              props.loading = false;
+              console.log(r.data);
+              if (r.data.status) {
+                q.notify({
+                  color: "light-blue-6",
+                  position: "top",
+                  message: "photo updated successfully!",
+                  icon: "done_all",
+                });
+                router.push("/profile");
+              } else {
+                q.notify({
+                  color: "orange-6",
+                  position: "top",
+                  message: "can not update the photo!",
+                  //icon: "done_all",
+                });
+              }
+            })
+            .catch((e) => {
+              props.loading = false;
+              console.log(e);
             });
-            router.push("/profile");
-          } else {
-            q.notify({
-              color: "orange-6",
-              position: "top",
-              message: "can not update the photo!",
-              //icon: "done_all",
-            });
-          }
-        })
-        .catch((e) => {
-          props.loading = false;
-          console.log(e);
-        });
+        
     }
     return {
       ...toRefs(props),
-      getPicture,
       updatePicture,
+      fetchProfile,
     };
   },
 };

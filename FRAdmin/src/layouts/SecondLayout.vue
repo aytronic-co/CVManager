@@ -84,6 +84,11 @@ const linksList = [
     icon: "info",
     link: "/#/biography",
   },
+  {
+    title: "پیام‌ها",
+    icon: "message",
+    link: "/#/messages",
+  },
 
   {
     title: "تنظیمات",

@@ -40,11 +40,13 @@ import { useQuasar } from "quasar";
 import { api } from "src/boot/axios";
 import { useRoute, useRouter } from "vue-router";
 import { useAppDataStore } from "src/stores/appData";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "ConfirmPage",
   setup() {
     const appData = useAppDataStore();
+    const { userMobile } = storeToRefs(appData);
     const route = useRoute();
     const q = useQuasar();
     const username = ref(null);
@@ -67,7 +69,7 @@ export default {
             grant_type: "password",
             //client_id: cliendId.value,
             //client_secret: clientSecret.value,
-            username: appData.mobile, //route.params.modelValue, //username.value,
+            username: appData.userMobile, //route.params.modelValue, //username.value,
             password: password.value,
           })
           .then((r) => {

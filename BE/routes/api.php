@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Education;
+use Illuminate\Http\Request;    
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EducationController;
 
@@ -29,6 +32,16 @@ Route::prefix('admin')->group(function(){
     Route::post('/auth', [AuthController::class, 'auth']);
     Route::apiResource('/profile' , ProfileController::class)->middleware('auth:api');
     Route::apiResource('/education' , EducationController::class)->middleware('auth:api');
+    Route::apiResource('/message' , MessageController::class)->middleware('auth:api');
 
+
+});
+Route::get('/user', function () {
+    return User::find(1);
+});
+Route::get('/userEdu', function () {
+     // return Education::all();
+    $user= User::find(1);
+    return $user->educations;
 });
 

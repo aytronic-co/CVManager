@@ -4,7 +4,14 @@
 			"path": "BE"
 		},
 		{
+<<<<<<< HEAD
 			"path": "FE"
+=======
+			"path": "FR"
+		},
+		{
+			"path": "FRAdmin"
+>>>>>>> 6cc72777352c1fbc895c0b4373a675d2a49e80c1
 		}
 	],
 	"settings": {}

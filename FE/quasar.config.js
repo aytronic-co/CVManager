@@ -102,7 +102,11 @@ module.exports = configure(function (/* ctx */) {
     framework: {
       lang: "fa-IR",
       config: {
+<<<<<<< HEAD:FR/quasar.config.js
         direction: "rtl",
+=======
+      direction: 'rtl'
+>>>>>>> main:FE/quasar.config.js
       },
 
       // iconSet: 'material-icons', // Quasar icon set
@@ -116,7 +120,11 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
+<<<<<<< HEAD:FR/quasar.config.js
       plugins: ["Cookies", "Notify"],
+=======
+      plugins: ['Notify' , "Cookies" ],
+>>>>>>> main:FE/quasar.config.js
     },
 
     // animations: 'all', // --- includes all animations

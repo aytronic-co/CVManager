@@ -4,10 +4,14 @@
 			"path": "BE"
 		},
 		{
+<<<<<<< HEAD
 			"path": "FR"
 		},
 		{
 			"path": "FRAdmin"
+=======
+			"path": "FE"
+>>>>>>> main
 		}
 	],
 	"settings": {}

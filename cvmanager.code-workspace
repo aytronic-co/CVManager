@@ -4,6 +4,9 @@
 			"path": "BE"
 		},
 		{
+			"path": "FRAdmin"
+		},
+		{
 			"path": "FE"
 		}
 	],

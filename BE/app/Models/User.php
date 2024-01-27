@@ -51,7 +51,7 @@ class User extends Authenticatable
     ];
 
 
-    protected $with = ['profile'];
+    protected $with = ['profile','educations'];
     public function profile():HasOne
     {
         return $this->hasOne(Profile::class);

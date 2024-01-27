@@ -1,6 +1,14 @@
-
 const routes = [
   {
+<<<<<<< HEAD:FR/src/router/routes.js
+    path: "/",
+    component: () => import("layouts/FirstLayout.vue"),
+    children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
+  },
+  {
+    path: "/:catchAll(.*)*",
+    component: () => import("pages/ErrorNotFound.vue"),
+=======
     path: '/',
     component: () => import('layouts/FirstLayout.vue'),
     children: [
@@ -115,15 +123,8 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/SettingsPage.vue') }
     ]
+>>>>>>> main:FE/src/router/routes.js
   },
+];
 
-
-  // Always leave this as last one,
-  // but you can also remove it
-  {
-    path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue')
-  }
-]
-
-export default routes
+export default routes;

@@ -49,7 +49,7 @@ class EducationController extends Controller
             return response()->json(['status'=>false,'message'=> 'education dosnt save']);
         }
         else
-            return response()->json(['status'=>true, $education]);
+            return response()->json(['status'=>true, 'education'=> $education]);
     }
 
     /**
@@ -77,7 +77,13 @@ class EducationController extends Controller
         if ($validator->fails()){
             return response()->json(['status'=>false,'message'=> $validator->messages()]);
         }
-        $education = Education::update([
+        // $stD=$education->start_date;
+        // if ($request->start_date)
+        //     $stD=$request->start_date;
+        // $endD=$education->end_date;
+        // if ($request->end_date)
+        //     $endD=$request->end_date;
+        $education -> update([
              'user_id'=>$request->user()->id,
              'degree'=>$request->degree,
              'school'=>$request->school,
@@ -85,11 +91,18 @@ class EducationController extends Controller
              'start_date'=>$request->start_date,
              'end_date'=>$request->end_date,
         ]);
-        if (!$education){
-            return response()->json(['status'=>false,'message'=> 'education dosnt updated']);
-        }
-        else
-            return response()->json(['status'=>true, $education]);
+         if ($education)
+             return response()->json(['status'=>true, $education]);
+         else
+             return response()->json(['status'=>false,'message'=> 'education dosnt updated']);
+        // $education->degree = $request->degree;
+        // $education->school = $request->school;
+        // $education->field = $request->field;
+        // $education->start_date = $request->start_date;
+        // $education->end_date = $request->end_date;
+        // $education->save();
+        // return response()->json(['status'=>true, $education]);
+
     }
 
     /**
